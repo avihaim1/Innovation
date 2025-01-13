@@ -1,0 +1,23 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  code_review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run AI Code Review
+        uses: ewellnitz/ai-code-review@v1
+        with:
+          api_key: ${{ secrets.OPENAI_API_KEY }}
+          ai_model: 'gpt-4'
+          review_criteria: 'bugs, performance, best_practices'
+          file_extensions: 'js,ts,css,html'
+          additional_prompts: 'Fix variable naming, Ensure consistent indentation, Review error handling approach'
